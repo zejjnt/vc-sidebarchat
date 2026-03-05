@@ -48,10 +48,11 @@ import {
 import { settings, SidebarStore } from "./store";
 
 // ??? no clue why this HeaderBarIcon doesnt work, its the same as the one below
-const { HeaderBar, /* HeaderBarIcon*/ } = mapMangledModuleLazy(".HEADER_BAR_BADGE_TOP:", {
-    HeaderBarIcon: filters.componentByCode('"aria-haspopup":'),
-    HeaderBar: filters.byCode("toolbar:", 'section"'),
-});
+// I have no clue either but not it spawns that annoying red error modal every now and then and this seems to be the root cause so it's getting some mandatory leave until someone that actually knows this language fixes it /// zejjnt
+//const { HeaderBar, /* HeaderBarIcon*/ } = mapMangledModuleLazy(".HEADER_BAR_BADGE_TOP:", {
+//    HeaderBarIcon: filters.componentByCode('"aria-haspopup":'),
+//    HeaderBar: filters.byCode("toolbar:", 'section"'),
+//});
 
 // from toolbox
 const HeaderBarIcon = findComponentByCodeLazy(".HEADER_BAR_BADGE_TOP:", '"aria-haspopup":');
