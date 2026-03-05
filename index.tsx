@@ -51,7 +51,6 @@ const { HeaderBar, /*HeaderBarIcon*/ } = mapMangledModuleLazy(".HEADER_BAR_BADGE
     HeaderBar: filters.byCode("toolbar:", 'section"'),
 });
 
-
 const HeaderBarIcon = findComponentByCodeLazy(".HEADER_BAR_BADGE_TOP:", '"aria-haspopup":');
 
 const { ForumView } = mapMangledModuleLazy("forum-grid-header-section-", {
