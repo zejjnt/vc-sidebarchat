@@ -89,11 +89,6 @@ const ChatClasses = findCssClassesLazy("threadSidebarOpen", "loader");
 
 const ChannelSectionStore = findStoreLazy("ChannelSectionStore");
 
-const requireChannelContextMenu = extractAndLoadChunksLazy(
-    ["&&this.handleActivitiesPopoutClose(),"],
-    new RegExp(DefaultExtractAndLoadChunksRegex.source + ".{1,60}renderChannelInfo")
-);
-
 const requireForumView = extractAndLoadChunksLazy(
     ["Missing channel in Channel.renderHeaderToolbar"],
     new RegExp(DefaultExtractAndLoadChunksRegex.source + '.{1,150}name:"ForumChannel"')
@@ -149,10 +144,10 @@ export default definePlugin({
                     replace: "$&vc_SidebarChat=$self.renderSidebar(),"
                 },
                 {
-                    match: /return(\(0,\i\.jsxs?\)\(\i\.\i,{}\))}/,
+                    match: /return(\(0,\i\.jsxs?\)\(.{1,4},{}\))}/,
                     replace: "return [$1, vc_SidebarChat]}"
                 },
-                /*{
+                /* {
                     match: /(case \i\.\i.+?return)(.+?);(?=.+?params\.messageId)(?<=ChannelRenderer".+?)/g,
                     replace: "$1[$2, vc_SidebarChat];",
                     predicate: () => settings.store.patchCommunity,
@@ -293,7 +288,6 @@ const Header = ({ guild, channel }: { guild: Guild; channel: Channel; }) => {
     const closeSidebar = () => FluxDispatcher.dispatch({ type: "VC_SIDEBAR_CHAT_CLOSE", });
 
     const openPopout = useCallback(async () => {
-        await requireChannelContextMenu();
         PopoutActions.open(
             `DISCORD_VC_SC-${channel.id}`,
             () => <RenderPopout channel={channel} name={name} />,
