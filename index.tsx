@@ -14,7 +14,6 @@ import definePlugin from "@utils/types";
 import { Channel, Guild, User } from "@vencord/discord-types";
 import { ChannelType } from "@vencord/discord-types/enums";
 import {
-    DefaultExtractAndLoadChunksRegex,
     extractAndLoadChunksLazy,
     filters,
     findByPropsLazy,
@@ -91,7 +90,7 @@ const ChannelSectionStore = findStoreLazy("ChannelSectionStore");
 
 const requireForumView = extractAndLoadChunksLazy(
     ["Missing channel in Channel.renderHeaderToolbar"],
-    new RegExp(DefaultExtractAndLoadChunksRegex.source + '.{1,150}name:"ForumChannel"')
+    /Promise\.all\(\[((?:\i\.e\("\d+"\),?)+)\]\)\.then\(\i\.bind\(\i,(\d+)\)\)[^}]{0,100}?name:"ForumChannel"/
 );
 
 const MakeContextMenu = (id: string, guildId: string | null) => {
@@ -144,7 +143,7 @@ export default definePlugin({
                     replace: "$&vc_SidebarChat=$self.renderSidebar(),"
                 },
                 {
-                    match: /return(\(0,\i\.jsxs?\)\(.{1,4},{}\))}/,
+                    match: /return(\(0,\i\.jsxs?\)\(.{1,4},{}\))}(?<=default:.{1,250})/,
                     replace: "return [$1, vc_SidebarChat]}"
                 },
                 /* {
